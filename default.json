@@ -8,7 +8,7 @@
     "docker:pinDigests",
     "group:monorepos",
     "group:recommended",
-    "schedule:weekly"
+    "schedule:daily"
   ],
   "labels": ["dependencies"],
   "prConcurrentLimit": 10,
