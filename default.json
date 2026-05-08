@@ -5,6 +5,7 @@
     ":dependencyDashboard",
     ":semanticCommits",
     ":timezone(America/New_York)",
+    "docker:pinDigests",
     "group:monorepos",
     "group:recommended",
     "schedule:weekly"
@@ -15,13 +16,12 @@
   "rangeStrategy": "bump",
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 6am on monday"]
+    "schedule": ["at any time"]
   },
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["security"],
-    "schedule": ["at any time"],
-    "prPriority": 10
+    "schedule": ["at any time"]
   },
   "osvVulnerabilityAlerts": true,
   "packageRules": [
@@ -35,6 +35,20 @@
       "description": "Group all GitHub Actions updates",
       "matchManagers": ["github-actions"],
       "groupName": "github-actions"
+    },
+    {
+      "description": "Refresh Docker image digests as soon as upstream images change",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest"],
+      "groupName": "docker image digest updates",
+      "labels": ["dependencies", "docker"],
+      "schedule": ["at any time"]
+    },
+    {
+      "description": "Label Docker image version updates",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "labels": ["dependencies", "docker"]
     },
     {
       "description": "Major Python updates: separate PRs, no auto-merge",
