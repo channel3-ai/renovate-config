@@ -15,7 +15,7 @@
   "prHourlyLimit": 4,
   "rangeStrategy": "bump",
   "constraints": {
-    "pnpm": "10"
+    "pnpm": "10.6.2"
   },
   "lockFileMaintenance": {
     "enabled": true,
