@@ -8,18 +8,19 @@
     "docker:pinDigests",
     "group:monorepos",
     "group:recommended",
-    "schedule:daily"
+    "schedule:weekly"
   ],
   "labels": ["dependencies"],
-  "prConcurrentLimit": 10,
+  "prConcurrentLimit": 5,
   "prHourlyLimit": 4,
   "rangeStrategy": "bump",
+  "minimumReleaseAge": "5 days",
   "constraints": {
     "pnpm": "10.6.2"
   },
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["at any time"]
+    "schedule": ["before 4am on monday"]
   },
   "vulnerabilityAlerts": {
     "enabled": true,
@@ -31,9 +32,15 @@
   "packageRules": [
     {
       "description": "Group all non-major Python updates into one PR per week",
-      "matchManagers": ["pep621"],
+      "matchManagers": ["pep621", "pip_requirements", "poetry", "pip-compile", "setup-cfg"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "python non-major"
+    },
+    {
+      "description": "Group all non-major JS updates into one PR per week",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "js non-major"
     },
     {
       "description": "Group all GitHub Actions updates",
@@ -41,12 +48,11 @@
       "groupName": "github-actions"
     },
     {
-      "description": "Refresh Docker image digests as soon as upstream images change",
+      "description": "Group Docker image digest refreshes on the weekly schedule",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["digest"],
       "groupName": "docker image digest updates",
-      "labels": ["dependencies", "docker"],
-      "schedule": ["at any time"]
+      "labels": ["dependencies", "docker"]
     },
     {
       "description": "Label Docker image version updates",
@@ -56,7 +62,7 @@
     },
     {
       "description": "Major Python updates: separate PRs, no auto-merge",
-      "matchManagers": ["pep621"],
+      "matchManagers": ["pep621", "pip_requirements", "poetry", "pip-compile", "setup-cfg"],
       "matchUpdateTypes": ["major"],
       "labels": ["dependencies", "major-update"]
     }
