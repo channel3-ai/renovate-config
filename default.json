@@ -32,7 +32,7 @@
   "packageRules": [
     {
       "description": "Group all non-major Python updates into one PR per week",
-      "matchManagers": ["pep621"],
+      "matchManagers": ["pep621", "pip_requirements", "poetry", "pip-compile", "setup-cfg"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "python non-major"
     },
@@ -62,7 +62,7 @@
     },
     {
       "description": "Major Python updates: separate PRs, no auto-merge",
-      "matchManagers": ["pep621"],
+      "matchManagers": ["pep621", "pip_requirements", "poetry", "pip-compile", "setup-cfg"],
       "matchUpdateTypes": ["major"],
       "labels": ["dependencies", "major-update"]
     }
