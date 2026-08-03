@@ -14,9 +14,6 @@
   "prConcurrentLimit": 10,
   "prHourlyLimit": 4,
   "rangeStrategy": "bump",
-  "constraints": {
-    "pnpm": "10.6.2"
-  },
   "postUpdateOptions": ["pnpmDedupe", "npmDedupe"],
   "lockFileMaintenance": {
     "enabled": true,
@@ -29,7 +26,8 @@
     "assignees": ["glaw1300"],
     "prConcurrentLimit": 0,
     "prHourlyLimit": 0,
-    "rangeStrategy": "update-lockfile"
+    "rangeStrategy": "update-lockfile",
+    "vulnerabilityFixStrategy": "lowest"
   },
   "osvVulnerabilityAlerts": true,
   "packageRules": [
@@ -63,6 +61,12 @@
       "matchManagers": ["pep621"],
       "matchUpdateTypes": ["major"],
       "labels": ["dependencies", "major-update"]
+    },
+    {
+      "description": "Package-manager majors (pnpm/npm/yarn) require explicit approval via the Dependency Dashboard",
+      "matchDepTypes": ["packageManager"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
     }
   ]
 }
