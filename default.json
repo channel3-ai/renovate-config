@@ -14,6 +14,7 @@
   "prConcurrentLimit": 10,
   "prHourlyLimit": 4,
   "rangeStrategy": "bump",
+  "constraints": { "pnpm": "^10.34.4" },
   "postUpdateOptions": ["pnpmDedupe", "npmDedupe"],
   "lockFileMaintenance": {
     "enabled": true,
