@@ -32,6 +32,16 @@ Keep policy in `default.json`. `org-inherited-config.json` should stay a thin po
 there is one source of truth — repo-level config wins over inherited config, so duplicating
 settings across both files causes the inherited copy to be silently ignored.
 
+## pnpm version used for lockfile regeneration
+
+`constraints.pnpm` in `default.json` pins which pnpm Renovate runs when it regenerates
+`pnpm-lock.yaml` (lock file maintenance and every dependency PR). Without it Renovate picks the
+newest pnpm compatible with the lockfile, and pnpm 11 no longer reads `pnpm.overrides` from
+`package.json`, so it silently deleted the `overrides:` block from lockfiles and undid security
+floors. In Renovate's precedence this config constraint beats the repo's `packageManager` field and
+lockfile detection, so no per-repo pin is needed. When we move the org to pnpm 11, move each
+repo's `pnpm.overrides` into `pnpm-workspace.yaml` first, then bump this one line.
+
 ## Presets
 
 - `default.json` (default): standard policy — weekly grouped non-major updates, immediate vulnerability PRs, lockfile maintenance, OSV + GHSA advisories, no auto-merge.
